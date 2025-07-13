@@ -49,7 +49,7 @@ namespace EmployeeApp.Parser
                 {
                     var salary = new EmpSalaryDetails
                     {
-                        Id = Convert.ToInt32(worksheet.Cells[row, 1].Value),
+                        EmpId = Convert.ToInt32(worksheet.Cells[row, 1].Value),
                         Month = worksheet.Cells[row, 5].Value.ToString(),
                         Year = Convert.ToInt32(worksheet.Cells[row, 6].Value),
                         BasicSalary = Convert.ToInt32(worksheet.Cells[row, 7].Value),

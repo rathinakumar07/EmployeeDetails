@@ -52,13 +52,14 @@
         <div class="row mb-4">
             <div class="col-md-6">
                 <h4><i class="fa-solid fa-user"></i> Employee Details</h4>
+                <p><strong>Name:</strong> @Model.Name</p>
                 <p><strong>Employee ID:</strong> @Model.Id</p>
                 <p><strong>Month:</strong> @Model.Month</p>
                 <p><strong>Year:</strong> @Model.Year</p>
             </div>
             <div class="col-md-6 text-end">
                 <h4><i class="fa-solid fa-wallet"></i> Net Pay</h4>
-                <h3 class="text-success">₹ 60000</h3>
+                <h3 class="text-success">₹ @Model.NetSalary</h3>
             </div>
         </div>
 
@@ -78,7 +79,7 @@
                         <tr><td>Transport Allowance</td><td>₹ @Model.TransportAllowances</td></tr>
                         <tr><td>Dining Allowance</td><td>₹ @Model.DiningAllowances</td></tr>
                         <tr><td>Reimbursement</td><td>₹ @Model.Reimbursement</td></tr>
-                        <tr class="table-success"><th>Gross Earnings</th><th>₹ 2000</th></tr>
+                        <tr class="table-success"><th>Gross Earnings</th><th>₹ @Model.TotalEarnings</th></tr>
                     </tbody>
                 </table>
             </div>
@@ -95,7 +96,8 @@
                     <tbody>
                         <tr><td>Income Tax</td><td>₹ @Model.IncomeTax</td></tr>
                         <tr><td>EPF</td><td>₹ @Model.Epf</td></tr>
-                        <tr class="table-danger"><th>Total Deductions</th><th>₹ 4000</th></tr>
+                        <tr><td>Cross Earnings Deductions</td><td>₹ @Model.CrossEarningDeductions</td></tr>
+                        <tr class="table-danger"><th>Total Deductions</th><th>₹ @Model.TotalDeductions</th></tr>
                     </tbody>
                 </table>
             </div>
