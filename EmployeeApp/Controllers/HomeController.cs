@@ -1,4 +1,5 @@
 using AspNetCoreGeneratedDocument;
+using EmployeeApp.Dtos;
 using EmployeeApp.Models;
 using EmployeeApp.Parser;
 using EmployeeApp.Parser._Interfaces;
@@ -62,8 +63,23 @@ namespace EmployeeApp.Controllers
         
         public IActionResult ViewSalaryDetails(int id)
         {
+            EmpSalaryDetailsDto details = new EmpSalaryDetailsDto()
+            {
+                Month= "January",
+                Year = 2023,
+                BasicSalary = 50000,
+                Hra = 10000,
+                TransportAllowances = 5000,
+                DiningAllowances = 2000,
+                CrossEarningDeductions = 3000,
+                Reimbursement = 1500,
+                IncomeTax = 2000,
+                Epf = 2500,
+                Id = id
+            };
+            
             // TODO: Retreive the details from DB
-            return View("EmployeeSalaryView");
+            return View("EmployeeSalaryView", details);
         }
     }
 }

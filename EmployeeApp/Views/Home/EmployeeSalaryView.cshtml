@@ -52,9 +52,9 @@
         <div class="row mb-4">
             <div class="col-md-6">
                 <h4><i class="fa-solid fa-user"></i> Employee Details</h4>
-                <p><strong>Employee ID:</strong> 2456789</p>
-                <p><strong>Month:</strong> july</p>
-                <p><strong>Year:</strong> 2025</p>
+                <p><strong>Employee ID:</strong> @Model.Id</p>
+                <p><strong>Month:</strong> @Model.Month</p>
+                <p><strong>Year:</strong> @Model.Year</p>
             </div>
             <div class="col-md-6 text-end">
                 <h4><i class="fa-solid fa-wallet"></i> Net Pay</h4>
@@ -73,11 +73,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Basic Salary</td><td>₹ 60000</td></tr>
-                        <tr><td>HRA</td><td>₹ 1000</td></tr>
-                        <tr><td>Transport Allowance</td><td>₹ 1200</td></tr>
-                        <tr><td>Dining Allowance</td><td>₹ 1500</td></tr>
-                        <tr><td>Reimbursement</td><td>₹ 800</td></tr>
+                        <tr><td>Basic Salary</td><td>₹ @Model.BasicSalary</td></tr>
+                        <tr><td>HRA</td><td>₹ @Model.Hra</td></tr>
+                        <tr><td>Transport Allowance</td><td>₹ @Model.TransportAllowances</td></tr>
+                        <tr><td>Dining Allowance</td><td>₹ @Model.DiningAllowances</td></tr>
+                        <tr><td>Reimbursement</td><td>₹ @Model.Reimbursement</td></tr>
                         <tr class="table-success"><th>Gross Earnings</th><th>₹ 2000</th></tr>
                     </tbody>
                 </table>
@@ -93,8 +93,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Income Tax</td><td>₹ 5000</td></tr>
-                        <tr><td>EPF</td><td>₹1000</td></tr>
+                        <tr><td>Income Tax</td><td>₹ @Model.IncomeTax</td></tr>
+                        <tr><td>EPF</td><td>₹ @Model.Epf</td></tr>
                         <tr class="table-danger"><th>Total Deductions</th><th>₹ 4000</th></tr>
                     </tbody>
                 </table>
