@@ -3,6 +3,7 @@
     public class EmpSalaryDetailsDto
     {
         public int Id { get; set; }
+        public string? Name { get; set; }
         public string? Month { get; set; }
         public int Year { get; set; }
         public int BasicSalary { get; set; }
@@ -13,5 +14,9 @@
         public int IncomeTax { get; set; }
         public int CrossEarningDeductions { get; set; }
         public int Epf { get; set; }
+        public int TotalEarnings => BasicSalary + Hra + TransportAllowances + DiningAllowances + Reimbursement;
+        public int TotalDeductions => IncomeTax + CrossEarningDeductions + Epf;
+        public int NetSalary => TotalEarnings - TotalDeductions;
     }
+    
 }

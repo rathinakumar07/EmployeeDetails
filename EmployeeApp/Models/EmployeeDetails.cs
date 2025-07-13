@@ -17,7 +17,5 @@ namespace EmployeeApp.Models
 
         [MaxLength(100)]
         public string? Position { get; set; }
-
-        public DateAndTime DataOfJoining { get; set; }
     }
 }

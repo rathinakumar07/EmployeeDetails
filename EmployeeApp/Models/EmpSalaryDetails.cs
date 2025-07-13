@@ -1,8 +1,17 @@
-﻿namespace EmployeeApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EmployeeApp.Models
 {
     public class EmpSalaryDetails
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [ForeignKey("Id")]
+        public int EmpId { get; set; }
+        [MaxLength(20)]
         public string? Month { get; set; }
         public int Year { get; set; }
         public int BasicSalary { get; set; }

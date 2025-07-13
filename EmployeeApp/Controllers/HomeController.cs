@@ -1,4 +1,5 @@
 using AspNetCoreGeneratedDocument;
+using EmployeeApp.DataAccess;
 using EmployeeApp.Dtos;
 using EmployeeApp.Models;
 using EmployeeApp.Parser;
@@ -49,7 +50,21 @@ namespace EmployeeApp.Controllers
                         IEmployeeFileParser parser = new EmployeeExcelParser();
                         IList<EmployeeDetails> employees = parser.GetEmployees(fileStream);
                         IList<EmpSalaryDetails> salaries = parser.GetSalaries(fileStream);
-                       // TODO: Save the details to DB
+
+                        using(DbRepository dbRepository = new DbRepository())
+                        {
+                            // Save employees
+                            foreach (var employee in employees)
+                            {
+                                await dbRepository.AddEmployeeAsync(employee);
+                            }
+                            // Save salaries
+                            foreach (var salary in salaries)
+                            {
+                                await dbRepository.AddSalaryAsync(salary);
+                            }
+                        }
+
                         return View("Index", employees);
                     }                    
                 }
@@ -61,25 +76,42 @@ namespace EmployeeApp.Controllers
             }
         }
         
-        public IActionResult ViewSalaryDetails(int id)
+        public ActionResult ViewSalaryDetails(int id)
         {
-            EmpSalaryDetailsDto details = new EmpSalaryDetailsDto()
+            using (DbRepository dbRepository = new DbRepository())
             {
-                Month= "January",
-                Year = 2023,
-                BasicSalary = 50000,
-                Hra = 10000,
-                TransportAllowances = 5000,
-                DiningAllowances = 2000,
-                CrossEarningDeductions = 3000,
-                Reimbursement = 1500,
-                IncomeTax = 2000,
-                Epf = 2500,
-                Id = id
-            };
-            
-            // TODO: Retreive the details from DB
-            return View("EmployeeSalaryView", details);
+                // Await the async method to get the result
+                var detailsTask = dbRepository.GetSalaryByIdAsync(id);
+                detailsTask.Wait();
+                var details = detailsTask.Result;
+
+                if (details == null)
+                {
+                    return NotFound($"No salary details found for employee ID {id}");
+                }
+
+                // Await the async method to get the employee name
+                var employeeTask = dbRepository.GetEmployeeByIdAsync(details.EmpId);
+                employeeTask.Wait();
+                var employee = employeeTask.Result;
+
+                EmpSalaryDetailsDto detailsDto = new EmpSalaryDetailsDto
+                {
+                    Id = details.EmpId,
+                    Name = employee?.Name,
+                    Month = details.Month,
+                    Year = details.Year,
+                    BasicSalary = details.BasicSalary,
+                    Hra = details.Hra,
+                    TransportAllowances = details.TransportAllowances,
+                    DiningAllowances = details.DiningAllowances,
+                    Reimbursement = details.Reimbursement,
+                    IncomeTax = details.IncomeTax,
+                    CrossEarningDeductions = details.CrossEarningDeductions,
+                    Epf = details.Epf
+                };
+                return View("EmployeeSalaryView", detailsDto);
+            }
         }
     }
 }
